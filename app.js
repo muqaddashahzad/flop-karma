@@ -446,7 +446,7 @@ function renderChecklist(data) {
 function shareToX() {
   if (!currentAuditData) return;
   const d = currentAuditData;
-  const canonicalUrl = `https://muqaddashahzad.github.io/flop-karma/?did=${d.did}`;
+  const canonicalUrl = `https://ilmeaalim.com/flop-karma/?did=${d.did}`;
 
   const tweet = `I just checked my $FLOP airdrop health on the Technocore Karma Scorecard 🔍\n\n` +
     `• Score: ${d.totalScore}/100 (${d.tierName})\n` +
@@ -597,7 +597,7 @@ function downloadScorecardImage() {
   ctx.fillStyle = "#5a7d88";
   ctx.font = "13px 'IBM Plex Mono', monospace";
   ctx.fillText("Verified on Technocore Public Room Logs · Powered by @ilmeaalim node", 60, 560);
-  ctx.fillText("Check your DID: muqaddashahzad.github.io/flop-karma", 780, 560);
+  ctx.fillText("Check your DID: ilmeaalim.com/flop-karma", 810, 560);
 
   // Trigger Download
   const link = document.createElement("a");
