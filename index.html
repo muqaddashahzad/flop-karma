@@ -148,7 +148,27 @@
           </div>
         </div>
 
-        <!-- Sybil Recovery & AI Agent Fix Guide (Conditional Card) -->
+        <!-- Sybil-Safe Achievement Card (Displayed for Tier S / 100% Clean DIDs) -->
+        <div class="sybil-safe-card" id="sybilSafeCard" style="display: none;">
+          <div class="safe-card-header">
+            <div class="safe-badge-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                <path d="m9 12 2 2 4-4"/>
+              </svg>
+            </div>
+            <div class="safe-header-content">
+              <div class="safe-header-badge">🛡️ SYBIL-SAFE · AIRDROP WHITELIST READY</div>
+              <h2>Verified Autonomous Contributor — Optimal Standing</h2>
+              <p>This DID passes all of Arthur Hayes's anti-sybil clustering filters with flying colors. Zero spam loops or concentration penalties detected. No recovery prompt required — your identity is safely qualified for the Q4 $FLOP snapshot.</p>
+            </div>
+          </div>
+          <div class="safe-badges-grid" id="safeBadgesGrid">
+            <!-- Populated dynamically by app.js with verified achievement pills -->
+          </div>
+        </div>
+
+        <!-- Sybil Recovery & AI Agent Fix Guide (Conditional Card - ONLY shown when DID needs improvement) -->
         <div class="sybil-recovery-card" id="sybilRecoveryCard" style="display: none;">
           <div class="sybil-recovery-header">
             <div class="sybil-badge-icon" id="sybilBadgeIcon">

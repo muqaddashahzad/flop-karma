@@ -732,6 +732,86 @@ footer a {
   text-underline-offset: 3px;
 }
 
+/* Sybil-Safe Celebratory Card (For Tier S Clean DIDs) */
+.sybil-safe-card {
+  background: linear-gradient(180deg, rgba(8, 28, 22, 0.9) 0%, rgba(4, 14, 12, 0.95) 100%);
+  border: 1px solid rgba(59, 227, 176, 0.4);
+  border-radius: 20px;
+  padding: 30px;
+  margin-bottom: 30px;
+  position: relative;
+  box-shadow: 0 10px 40px rgba(59, 227, 176, 0.1);
+  transition: all 0.3s ease;
+}
+
+.safe-card-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+}
+
+.safe-badge-icon {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  border-radius: 14px;
+  background: var(--cyan-dim);
+  border: 1px solid var(--cyan);
+  color: var(--cyan-lit);
+  display: grid;
+  place-items: center;
+}
+
+.safe-header-badge {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--cyan-dim);
+  color: var(--cyan-lit);
+  border: 1px solid rgba(59, 227, 176, 0.4);
+  margin-bottom: 8px;
+}
+
+.safe-header-content h2 {
+  font-size: 20px;
+  color: var(--text-white);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin-bottom: 6px;
+}
+
+.safe-header-content p {
+  color: var(--text-dim);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.safe-badges-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+
+.safe-badge-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  padding: 6px 14px;
+  border-radius: 8px;
+  background: rgba(59, 227, 176, 0.1);
+  border: 1px solid rgba(59, 227, 176, 0.25);
+  color: var(--cyan-lit);
+}
+
 /* Sybil Recovery Card */
 .sybil-recovery-card {
   background: linear-gradient(180deg, rgba(26, 12, 16, 0.85) 0%, rgba(13, 8, 14, 0.95) 100%);
