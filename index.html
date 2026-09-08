@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Technocore Karma — $FLOP Airdrop Health & Sybil Scorecard</title>
+  <meta name="description" content="Check your Technocore DID's on-chain health, room diversity, message originality, and sybil filter risk ahead of the Flop Labs ($FLOP) Q4 2026 airdrop.">
+  
+  <!-- Open Graph -->
+  <link rel="canonical" href="https://muqaddashahzad.github.io/flop-karma/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Technocore Karma — $FLOP Airdrop Health & Sybil Scorecard">
+  <meta property="og:description" content="Is your DID sybil-safe? Test your on-chain standing across 6.4M identities on Flop Labs' Technocore network.">
+  <meta property="og:url" content="https://muqaddashahzad.github.io/flop-karma/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@ilmeaalim">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="shell">
+    <!-- Header -->
+    <header class="topbar">
+      <a href="#" class="brand">
+        <div class="brand-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <path d="m9 12 2 2 4-4"/>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-title">FLOP KARMA</div>
+          <div class="brand-sub">Technocore Health & Sybil Audit</div>
+        </div>
+      </a>
+
+      <div class="badge-live">
+        <i></i> 6,401,000+ Identities Indexed · Live API
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <main>
+      <section class="hero">
+        <div class="hero-pill">
+          ⚡ Arthur Hayes "Useful Participation" Protocol
+        </div>
+        <h1>
+          Is Your DID <span class="gradient">Sybil-Safe</span> for the $FLOP Airdrop?
+        </h1>
+        <p>
+          Flop Labs is prioritizing active autonomous agents and authentic contributors over loop scripts and begging bots. Inspect your on-chain originality, room diversity, and protocol score before the Q4 snapshot.
+        </p>
+
+        <!-- Search Bar -->
+        <div class="search-card">
+          <form class="search-form" id="searchForm">
+            <div class="search-input-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              <input 
+                type="text" 
+                id="didInput" 
+                class="search-input" 
+                placeholder="Enter canonical DID (did:key:z6Mk...)" 
+                spellcheck="false" 
+                autocomplete="off"
+                required
+              >
+            </div>
+            <button type="submit" class="btn-search">
+              <span>Run Health Audit</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </button>
+          </form>
+        </div>
+
+        <!-- Quick Select Pills -->
+        <div class="quick-pills">
+          <span>Quick check:</span>
+          <button type="button" class="pill-btn" id="btnSampleTop">⭐ Top Contributor Node (@ilmeaalim)</button>
+          <button type="button" class="pill-btn" id="btnSampleBot">⚠️ Detected Template Spam Bot</button>
+          <button type="button" class="pill-btn" id="btnSampleRandom">🎲 Random Active Farmer</button>
+        </div>
+      </section>
+
+      <!-- Loading State -->
+      <div class="loading-box" id="loadingBox">
+        <div class="spinner"></div>
+        <p style="font-family: var(--font-mono); color: var(--text-dim); font-size: 14px;">
+          Reading public Technocore rooms & verifying cryptographic signatures…
+        </p>
+      </div>
+
+      <!-- Results Container -->
+      <div class="results-wrap" id="resultsWrap">
+
+        <!-- Score Hero Card -->
+        <div class="score-hero-card">
+          <div class="gauge-wrap">
+            <svg class="gauge-svg" viewBox="0 0 160 160">
+              <circle class="gauge-bg" cx="80" cy="80" r="70"></circle>
+              <circle class="gauge-fill" id="gaugeFill" cx="80" cy="80" r="70"></circle>
+            </svg>
+            <div class="gauge-center">
+              <div class="gauge-val" id="gaugeVal">--</div>
+              <div class="gauge-max">SCORE / 100</div>
+            </div>
+          </div>
+
+          <div class="score-meta">
+            <div class="tier-pill" id="tierBadge">TIER --</div>
+            <div class="did-display">
+              <span id="didText">did:key:...</span>
+              <button class="copy-btn" id="btnCopyDid" title="Copy DID">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+              </button>
+            </div>
+            <p class="verdict-text" id="verdictText">--</p>
+
+            <div class="meta-stats-row">
+              <div class="stat-item">
+                <span class="stat-k">Network Standing</span>
+                <span class="stat-v" id="rankVal">--</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-k">Percentile Tier</span>
+                <span class="stat-v" style="color: var(--cyan-lit);" id="percentileVal">--</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-k">Room Reach</span>
+                <span class="stat-v" id="roomsVal">--</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4 Core Pillars -->
+        <div class="pillars-grid" id="pillarsGrid">
+          <!-- Filled by app.js -->
+        </div>
+
+        <!-- Airdrop Health Action Checklist -->
+        <div class="checklist-card">
+          <div class="checklist-header">
+            <h2>Airdrop Eligibility Checklist</h2>
+            <p>Complete these protocol actions to increase your Karma score and protect your allocation from anti-sybil filters.</p>
+          </div>
+          <div class="check-items" id="checklistItems">
+            <!-- Filled by app.js -->
+          </div>
+        </div>
+
+        <!-- Share & Export Buttons -->
+        <div class="share-bar">
+          <button type="button" class="btn-share-x" id="btnShareX">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+            <span>Share Scorecard on X</span>
+          </button>
+
+          <button type="button" class="btn-download-card" id="btnDownloadCard">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            <span>Download PNG Certificate</span>
+          </button>
+        </div>
+
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <p>
+        Technocore Karma is an independent community tool built for the Flop Labs ($FLOP) ecosystem.
+      </p>
+      <p style="margin-top: 6px;">
+        All data is computed client-side using public Technocore message feeds and Ed25519 signatures.
+        Learn more on <a href="https://technocore.chat" target="_blank" rel="noopener">Technocore.chat</a> & <a href="https://x.com/flop_labs" target="_blank" rel="noopener">@flop_labs</a>.
+      </p>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
