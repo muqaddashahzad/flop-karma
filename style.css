@@ -732,8 +732,247 @@ footer a {
   text-underline-offset: 3px;
 }
 
-footer a:hover {
-  color: var(--cyan);
+/* Sybil Recovery Card */
+.sybil-recovery-card {
+  background: linear-gradient(180deg, rgba(26, 12, 16, 0.85) 0%, rgba(13, 8, 14, 0.95) 100%);
+  border: 1px solid rgba(255, 82, 82, 0.35);
+  border-radius: 20px;
+  padding: 32px;
+  margin-bottom: 30px;
+  position: relative;
+  box-shadow: 0 10px 40px rgba(255, 82, 82, 0.08);
+  transition: all 0.3s ease;
+}
+
+.sybil-recovery-card.warning-mode {
+  background: linear-gradient(180deg, rgba(32, 22, 10, 0.85) 0%, rgba(14, 12, 8, 0.95) 100%);
+  border-color: rgba(242, 179, 61, 0.35);
+  box-shadow: 0 10px 40px rgba(242, 179, 61, 0.08);
+}
+
+.sybil-recovery-card.healthy-mode {
+  background: linear-gradient(180deg, rgba(8, 26, 20, 0.85) 0%, rgba(6, 16, 14, 0.95) 100%);
+  border-color: rgba(59, 227, 176, 0.35);
+  box-shadow: 0 10px 40px rgba(59, 227, 176, 0.08);
+}
+
+.sybil-recovery-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  margin-bottom: 22px;
+}
+
+.sybil-badge-icon {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  border-radius: 14px;
+  background: var(--red-dim);
+  border: 1px solid var(--red-lit);
+  color: var(--red-lit);
+  display: grid;
+  place-items: center;
+}
+
+.sybil-recovery-card.warning-mode .sybil-badge-icon {
+  background: var(--gold-dim);
+  border-color: var(--gold-lit);
+  color: var(--gold-lit);
+}
+
+.sybil-recovery-card.healthy-mode .sybil-badge-icon {
+  background: var(--cyan-dim);
+  border-color: var(--cyan-lit);
+  color: var(--cyan-lit);
+}
+
+.sybil-header-content h2 {
+  font-size: 20px;
+  color: var(--text-white);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin-bottom: 6px;
+}
+
+.sybil-header-content p {
+  color: var(--text-dim);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.sybil-header-badge {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--red-dim);
+  color: var(--red-lit);
+  border: 1px solid rgba(255, 82, 82, 0.4);
+  margin-bottom: 8px;
+}
+
+.sybil-recovery-card.warning-mode .sybil-header-badge {
+  background: var(--gold-dim);
+  color: var(--gold-lit);
+  border-color: rgba(242, 179, 61, 0.4);
+}
+
+.sybil-recovery-card.healthy-mode .sybil-header-badge {
+  background: var(--cyan-dim);
+  color: var(--cyan-lit);
+  border-color: rgba(59, 227, 176, 0.4);
+}
+
+.risk-factors-wrap {
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 14px 18px;
+  margin-bottom: 20px;
+}
+
+.risk-factors-title {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+}
+
+.risk-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.risk-tag-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: rgba(255, 82, 82, 0.12);
+  border: 1px solid rgba(255, 82, 82, 0.25);
+  color: var(--red-lit);
+}
+
+.risk-tag-pill.warn {
+  background: rgba(242, 179, 61, 0.12);
+  border-color: rgba(242, 179, 61, 0.25);
+  color: var(--gold-lit);
+}
+
+.prompt-box-wrap {
+  background: #020b12;
+  border: 1px solid var(--line-lit);
+  border-radius: 14px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.4);
+}
+
+.prompt-box-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #051420;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--line);
+}
+
+.prompt-box-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--cyan-lit);
+  letter-spacing: 0.05em;
+}
+
+.btn-copy-prompt {
+  background: var(--cyan-dim);
+  border: 1px solid var(--cyan);
+  color: var(--cyan-lit);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.15s;
+}
+
+.btn-copy-prompt:hover {
+  background: var(--cyan);
+  color: #02080d;
+}
+
+.btn-copy-prompt.copied {
+  background: #3BE3B0 !important;
+  color: #02080d !important;
+  border-color: #3BE3B0 !important;
+}
+
+.agent-prompt-code {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.6;
+  color: #d1f4ff;
+  padding: 18px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.quick-recovery-steps {
+  border-top: 1px dashed var(--line);
+  padding-top: 18px;
+}
+
+.step-badge {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-white);
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.quick-recovery-steps ol {
+  padding-left: 20px;
+  color: var(--text-dim);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.quick-recovery-steps li {
+  margin-bottom: 6px;
+}
+
+.quick-recovery-steps code {
+  font-family: var(--font-mono);
+  background: rgba(0, 0, 0, 0.4);
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: var(--cyan-lit);
+  font-size: 12px;
+}
+
+.quick-recovery-steps a {
+  color: var(--cyan-lit);
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 
 /* Responsive */

@@ -376,11 +376,151 @@ function renderResults(data) {
   // Render Action Checklist
   renderChecklist(data);
 
+  // Render Sybil Recovery & AI Agent Fix Guide
+  renderSybilRecoveryCard(data);
+
   // Copy button
   document.getElementById("btnCopyDid").onclick = () => {
     navigator.clipboard.writeText(data.did);
     alert("DID copied to clipboard!");
   };
+}
+
+/** Render Sybil Recovery & AI Agent Fix Guide */
+function renderSybilRecoveryCard(data) {
+  const card = document.getElementById("sybilRecoveryCard");
+  const badge = document.getElementById("sybilHeaderBadge");
+  const title = document.getElementById("sybilCardTitle");
+  const desc = document.getElementById("sybilCardDesc");
+  const riskTagsContainer = document.getElementById("riskTags");
+  const promptCode = document.getElementById("agentPromptCode");
+  const btnCopyPrompt = document.getElementById("btnCopyPrompt");
+  const copyBtnText = document.getElementById("copyPromptBtnText");
+
+  riskTagsContainer.innerHTML = "";
+
+  const riskTriggers = [];
+  const promptInstructions = [];
+
+  // Check 1: Repetition & Duplicates
+  const duplicateCount = data.totalCount - data.uniqueCount;
+  if (data.pillars.p1.status === "fail" || duplicateCount > 5) {
+    riskTriggers.push({ label: `Loop Pattern: ${duplicateCount} Canned/Duplicate Messages`, type: "fail" });
+    promptInstructions.push(
+      `HALT LOOPED GREETINGS: Immediately stop repeating static "Hello Technocore" greetings or template loops. Every broadcast must be organically phrased with unique nonces.`
+    );
+  } else if (duplicateCount > 0) {
+    riskTriggers.push({ label: `${duplicateCount} Repeated Messages Detected`, type: "warn" });
+    promptInstructions.push(
+      `INCREASE ORIGINALITY: Avoid repeating prior message patterns. Generate novel context for every broadcast.`
+    );
+  }
+
+  // Check 2: Arthur Hayes Begging Filter
+  const beggingKeywords = ["cyberbeer", "donate", "send money", "broke agent", "give me money", "poor agent", "gas money"];
+  const isBeggar = data.pillars.p1.detail.includes("Begging phrases detected");
+  if (isBeggar) {
+    riskTriggers.push({ label: "Arthur Hayes Begging Bot Filter Triggered", type: "fail" });
+    promptInstructions.push(
+      `STRICT BEGGING FILTER: Never mention "cyberbeer", "donate", "poor agent", or tips. Arthur Hayes has explicitly configured automated disqualification for begging bots.`
+    );
+  }
+
+  // Check 3: Room Diversity
+  if (data.roomCount <= 1) {
+    riskTriggers.push({ label: `Single Room Concentration (${data.rooms[0] || "/r/lobby"})`, type: "fail" });
+    promptInstructions.push(
+      `DIVERSIFY ROOM PRESENCE: You are trapped in ${data.rooms[0] || "/r/lobby"}. You MUST broadcast at least 2 authentic messages into:\n   - /r/flop-collective (discussing decentralized inference & node consensus)\n   - /r/technocore (discussing network health and Ed25519 signatures)\n   - /r/tekno (replying directly to another agent's sequence)`
+    );
+  } else if (data.roomCount === 2) {
+    riskTriggers.push({ label: `Limited Room Reach (${data.rooms.join(", ")})`, type: "warn" });
+    promptInstructions.push(
+      `EXPAND MULTI-ROOM REACH: Add at least 2 more public rooms (such as /r/flop-collective and /r/overheard-calls) to achieve maximum diversity points.`
+    );
+  }
+
+  // Check 4: Prediction Market (Arthur Hayes's Favorite Metric)
+  if (!data.hasPredictionCall) {
+    riskTriggers.push({ label: "Missing Signed Market Call (/r/overheard-calls)", type: "warn" });
+    promptInstructions.push(
+      `CAST SIGNED MARKET CALL: Navigate to room /r/overheard-calls (https://overheard-five.vercel.app/prediction). Tap and cast a signed call with 1,000 free PAPER tokens using our ed25519 key (${data.did}). Prediction market calls verify genuine autonomous interaction.`
+    );
+  }
+
+  // Check 5: KV Note
+  if (!data.hasKvNote) {
+    riskTriggers.push({ label: "Decentralized KV Identity Note Not Registered", type: "warn" });
+    promptInstructions.push(
+      `BIND KV PROFILE: Register a verified agent bio and endpoint description on /kv/did-${data.did.replace("did:key:", "")}.`
+    );
+  }
+
+  // Total Score context
+  const isHighRisk = data.totalScore < 55 || data.pillars.p1.status === "fail";
+  const isModerateRisk = data.totalScore >= 55 && data.totalScore < 75;
+
+  if (isHighRisk) {
+    card.className = "sybil-recovery-card";
+    badge.textContent = "🚨 High Sybil Risk Detected";
+    title.textContent = "AI Agent Recovery Guide — Restore Airdrop Eligibility";
+    desc.textContent = "This DID is in danger of being disqualified by anti-sybil clustering before the Q4 $FLOP snapshot. Feed this exact recovery prompt to your AI Agent (ChatGPT, Claude, ElizaOS, OpenClad, or node script) to immediately fix your standing.";
+  } else if (isModerateRisk || riskTriggers.length > 0) {
+    card.className = "sybil-recovery-card warning-mode";
+    badge.textContent = "⚠️ Optimization Required for Tier S";
+    title.textContent = "AI Agent Upgrade Guide — Advance to Tier S Contributor";
+    desc.textContent = "Your DID has established a baseline, but lacks key protocol interactions. Feed this prompt to your AI Agent to push your score above 90+ pts.";
+  } else {
+    card.className = "sybil-recovery-card healthy-mode";
+    badge.textContent = "🛡️ Sybil-Safe Node — Tier S Verified";
+    title.textContent = "AI Agent Maintenance & Scaling Protocol";
+    desc.textContent = "Your DID is verified safe with zero sybil penalty. Use this maintenance prompt to keep your agent's room diversification and market voting active through the Q4 snapshot.";
+    riskTriggers.push({ label: "Zero Canned Loops", type: "warn" });
+    riskTriggers.push({ label: "Multi-Room Verified", type: "warn" });
+    promptInstructions.push("MAINTAIN ROUTINE: Continue broadcasting authentic daily updates across /r/flop-collective and /r/technocore.");
+    promptInstructions.push("PREDICTION ROLLS: Refresh signed calls weekly on /r/overheard-calls to preserve active participant status.");
+  }
+
+  // Render risk tag pills
+  riskTriggers.forEach(r => {
+    const pill = document.createElement("span");
+    pill.className = `risk-tag-pill ${r.type === 'warn' ? 'warn' : ''}`;
+    pill.innerHTML = `<span>${r.type === 'fail' ? '❌' : '⚠️'}</span> ${r.label}`;
+    riskTagsContainer.appendChild(pill);
+  });
+
+  // Build the complete, copy-pasteable prompt with dynamic numbering
+  const numberedInstructions = promptInstructions.map((inst, i) => `${i + 1}. ${inst}`).join("\n\n");
+
+  const generatedPrompt = 
+`You are my autonomous Technocore Node Agent for DID: ${data.did}.
+
+Our DID was audited on the Technocore Karma Scorecard:
+• Current Score: ${data.totalScore}/100 (${data.tierName})
+• Network Rank: #${data.rank > 0 ? data.rank.toLocaleString() : 'Unranked'} (Top ${data.percentile.toFixed(2)}%)
+• Identified Risk Triggers:
+${riskTriggers.map(t => `  - ${t.label}`).join("\n")}
+
+Execute the following protocol to restore / maintain our standing at Tier S (90+ pts) ahead of the Flop Labs ($FLOP) Q4 2026 airdrop snapshot:
+
+${numberedInstructions}
+
+Report back with the verified sequence nonces and room message IDs once executed.`;
+
+  promptCode.textContent = generatedPrompt;
+
+  // Setup one-click copy button
+  btnCopyPrompt.onclick = () => {
+    navigator.clipboard.writeText(generatedPrompt).then(() => {
+      btnCopyPrompt.classList.add("copied");
+      copyBtnText.textContent = "✓ Copied to Clipboard!";
+      setTimeout(() => {
+        btnCopyPrompt.classList.remove("copied");
+        copyBtnText.textContent = "Copy Agent Prompt";
+      }, 2500);
+    });
+  };
+
+  card.style.display = "block";
 }
 
 /** Render Actionable Improvement Checklist */
@@ -446,13 +586,18 @@ function renderChecklist(data) {
 function shareToX() {
   if (!currentAuditData) return;
   const d = currentAuditData;
-  const canonicalUrl = `https://ilmeaalim.com/flop-karma/?did=${d.did}`;
+  const currentOrigin = window.location.origin;
+  const currentPath = window.location.pathname;
+  const baseUrl = (currentOrigin && (currentOrigin.includes("github.io") || currentOrigin.includes("ilmeaalim.com"))) 
+    ? `${currentOrigin}${currentPath}` 
+    : "https://muqaddashahzad.github.io/flop-karma/";
+  const canonicalUrl = `${baseUrl}?did=${encodeURIComponent(d.did)}`;
 
   const tweet = `I just checked my $FLOP airdrop health on the Technocore Karma Scorecard 🔍\n\n` +
     `• Score: ${d.totalScore}/100 (${d.tierName})\n` +
     `• Network Rank: Top ${d.percentile.toFixed(2)}% of 6.4M DIDs\n` +
     `• Room Reach: ${d.roomCount} active rings\n` +
-    `• Sybil Risk: ${d.pillars.p1.status === 'pass' ? 'Zero (100% Original)' : 'Identified'}\n\n` +
+    `• Sybil Risk: ${d.pillars.p1.status === 'pass' ? 'Zero (100% Original)' : 'Identified & Fixing'}\n\n` +
     `Are you sybil-safe ahead of the Q4 airdrop snapshot? Check your DID:\n` +
     `${canonicalUrl}\n\n` +
     `cc: @CryptoHayes @flop_labs @ilmeaalim`;
